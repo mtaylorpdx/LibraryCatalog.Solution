@@ -1,0 +1,18 @@
+
+
+@using LibraryCatalog.Models;
+@model List<LibraryCatalog.Models.Author>;
+
+@if (@Model.Count ==0)
+{
+  <h3>No authors have been added.</h3>
+}
+
+@foreach (Author author in Model)
+{
+  <li>@Html.ActionLink($"{author.AuthorName}", "Details", new { id = author.AuthorId })</li>
+}
+
+<p>@Html.ActionLink("Add new author", "Create")</p>
+
+<p>@Html.ActionLink("Home", "Index", "Home")</p>

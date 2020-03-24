@@ -1,0 +1,12 @@
+
+
+@model LibraryCatalog.Models.Author
+
+@using (Html.BeginForm())
+{
+  @Html.LabelFor(model => model.AuthorName)
+  @Html.TextBoxFor(model => model.AuthorName)
+  <input type="submit" value="Add author">
+}
+
+<p>@Html.ActionLink("Show all authors", "Index")</p>
