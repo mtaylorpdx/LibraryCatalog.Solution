@@ -1,4 +1,6 @@
-
+@{
+  Layout = "_Layout";
+}
 
 <h2>Home</h2>
 <hr />
@@ -9,8 +11,5 @@
 }
 
 <p>@Html.ActionLink("Add an author", "Create", "Authors", null,  new { @class = "btn btn-success btn-large" })</p>
-<p>@Html.ActionLink("View all authors", "Index", "Authors",  null, new { @class = "btn btn-primary btn-large" })</p>
 <p>@Html.ActionLink("Add a title", "Create", "Titles",  null, new { @class = "btn btn-primary btn-large" })</p>
-<p>@Html.ActionLink("View all titles", "Index", "Titles",  null, new { @class = "btn btn-primary btn-large" })</p>
 <p>@Html.ActionLink("Add a patron", "Create", "Patrons",  null, new { @class = "btn btn-primary btn-large" })</p>
-<p>@Html.ActionLink("View all patrons", "Index", "Patrons",  null, new { @class = "btn btn-primary btn-large" })</p>

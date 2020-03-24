@@ -18,11 +18,11 @@ else
   <ul>
   @foreach(var join in Model.Titles)
   {
-    <li>@join.Title.TitleName</li>
+    <li>@join.Title.BookName</li>
     @using (Html.BeginForm("DeletePatron", "Patrons"))
     {
       @Html.Hidden("joinId", @join.CheckoutId)
-      <input type="submit" value="Delete"/>
+      <input type="submit" value="Check In"/>
     }
   }
   </ul>
