@@ -23,7 +23,7 @@ namespace LibraryCatalog.Controllers
 
     public ActionResult Create()
     {
-      ViewBag.AuthorId = new SelectList(_db.Authors, "AuthorId", "Name");
+      ViewBag.AuthorId = new SelectList(_db.Authors, "AuthorId", "AuthorName");
       return View();
     }
 
@@ -51,7 +51,7 @@ namespace LibraryCatalog.Controllers
     public ActionResult Edit(int id)
     {
       var thisTitle = _db.Titles.FirstOrDefault(titles => titles.TitleId == id);
-      ViewBag.AuthorId = new SelectList(_db.Authors, "AuthorId", "Name");
+      ViewBag.AuthorId = new SelectList(_db.Authors, "AuthorId", "AuthorName");
       return View(thisTitle);
     }
 
@@ -70,7 +70,7 @@ namespace LibraryCatalog.Controllers
     public ActionResult AddAuthor(int id)
     {
       var thisTitle = _db.Titles.FirstOrDefault(titles => titles.TitleId == id);
-      ViewBag.AuthorId = new SelectList(_db.Authors, "AuthorId", "Name");
+      ViewBag.AuthorId = new SelectList(_db.Authors, "AuthorId", "AuthorName");
       return View(thisTitle);
     }
 
