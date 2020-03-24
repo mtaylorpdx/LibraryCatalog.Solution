@@ -3,14 +3,16 @@ using System;
 using LibraryCatalog.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LibraryCatalog.Migrations
 {
     [DbContext(typeof(LibraryCatalogContext))]
-    partial class LibraryCatalogContextModelSnapshot : ModelSnapshot
+    [Migration("20200324204157_Sixth")]
+    partial class Sixth
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -86,45 +88,49 @@ namespace LibraryCatalog.Migrations
 
                     b.Property<int>("AuthorId");
 
+                    b.Property<int?>("CopyId");
+
                     b.Property<int>("TitleId");
 
                     b.HasKey("BookId");
 
                     b.HasIndex("AuthorId");
 
+                    b.HasIndex("CopyId");
+
                     b.HasIndex("TitleId");
 
                     b.ToTable("Book");
                 });
 
-            modelBuilder.Entity("LibraryCatalog.Models.Checkout", b =>
+            modelBuilder.Entity("LibraryCatalog.Models.Copy", b =>
                 {
-                    b.Property<int>("CheckoutId")
+                    b.Property<int>("CopyId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("PatronId");
+                    b.Property<int>("Quantity");
+
+                    b.HasKey("CopyId");
+
+                    b.ToTable("Copy");
+                });
+
+            modelBuilder.Entity("LibraryCatalog.Models.CopyTitle", b =>
+                {
+                    b.Property<int>("CopyTitleId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CopyId");
 
                     b.Property<int>("TitleId");
 
-                    b.HasKey("CheckoutId");
+                    b.HasKey("CopyTitleId");
 
-                    b.HasIndex("PatronId");
+                    b.HasIndex("CopyId");
 
                     b.HasIndex("TitleId");
 
-                    b.ToTable("Checkout");
-                });
-
-            modelBuilder.Entity("LibraryCatalog.Models.Patron", b =>
-                {
-                    b.Property<int>("PatronId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("PatronName");
-
-                    b.HasKey("PatronId");
-
-                    b.ToTable("Patrons");
+                    b.ToTable("CopyTitle");
                 });
 
             modelBuilder.Entity("LibraryCatalog.Models.Title", b =>
@@ -136,15 +142,9 @@ namespace LibraryCatalog.Migrations
 
                     b.Property<string>("BookName");
 
-                    b.Property<int?>("PatronId");
-
-                    b.Property<int>("Quantity");
-
                     b.Property<string>("UserId");
 
                     b.HasKey("TitleId");
-
-                    b.HasIndex("PatronId");
 
                     b.HasIndex("UserId");
 
@@ -265,31 +265,31 @@ namespace LibraryCatalog.Migrations
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade);
 
+                    b.HasOne("LibraryCatalog.Models.Copy")
+                        .WithMany("Titles")
+                        .HasForeignKey("CopyId");
+
                     b.HasOne("LibraryCatalog.Models.Title", "Title")
                         .WithMany("Authors")
                         .HasForeignKey("TitleId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("LibraryCatalog.Models.Checkout", b =>
+            modelBuilder.Entity("LibraryCatalog.Models.CopyTitle", b =>
                 {
-                    b.HasOne("LibraryCatalog.Models.Patron", "Patron")
+                    b.HasOne("LibraryCatalog.Models.Copy", "Copy")
                         .WithMany()
-                        .HasForeignKey("PatronId")
+                        .HasForeignKey("CopyId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("LibraryCatalog.Models.Title", "Title")
-                        .WithMany("Checkouts")
+                        .WithMany("Copies")
                         .HasForeignKey("TitleId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("LibraryCatalog.Models.Title", b =>
                 {
-                    b.HasOne("LibraryCatalog.Models.Patron")
-                        .WithMany("Checkouts")
-                        .HasForeignKey("PatronId");
-
                     b.HasOne("LibraryCatalog.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");

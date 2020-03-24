@@ -6,11 +6,11 @@ namespace LibraryCatalog.Models
     {
         public Patron()
         {
-            this.Copy = new HashSet<Title>();
+          this.Checkouts = new HashSet<Title>();
         }
 
         public int PatronId { get; set; }
         public string PatronName { get; set; }
-        public virtual ICollection<Title> Copy { get; set; }
+        public virtual ICollection<Title> Checkouts { get; set; }
     }
 }
