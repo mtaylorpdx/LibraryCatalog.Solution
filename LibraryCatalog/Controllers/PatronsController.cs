@@ -50,7 +50,7 @@ namespace LibraryCatalog.Controllers
     public ActionResult Edit(int id)
     {
       var thisPatron = _db.Patrons.FirstOrDefault(patrons => patrons.PatronId == id);
-      // ViewBag.AuthorId = new SelectList(_db.Authors, "AuthorId", "AuthorName");
+      ViewBag.TitleId = new SelectList(_db.Titles, "TitleId", "BookName");
       return View(thisPatron);
     }
 
@@ -69,7 +69,7 @@ namespace LibraryCatalog.Controllers
     public ActionResult AddTitle(int id)
     {
       var thisPatron = _db.Patrons.FirstOrDefault(patrons => patrons.PatronId == id);
-      // ViewBag.AuthorId = new SelectList(_db.Authors, "AuthorId", "AuthorName");
+      ViewBag.TitleId = new SelectList(_db.Titles, "TitleId", "BookName");
       return View(thisPatron);
     }
 

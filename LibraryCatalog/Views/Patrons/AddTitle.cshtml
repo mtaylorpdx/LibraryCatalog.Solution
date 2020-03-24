@@ -1,0 +1,21 @@
+@{
+  Layout = "_Layout";
+}
+
+@model LibraryCatalog.Models.Patron
+
+<h2>Add a title</h2>
+
+<h4>Add a title to this patron: @Html.DisplayFor(model => model.PatronName)</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(model => model.PatronId)
+
+    @Html.Label("Select title")
+    @Html.DropDownList("TitleId")
+
+    <input type="submit" value="Save" />
+}
+
+<p>@Html.ActionLink("Back to list", "Index")</p>
