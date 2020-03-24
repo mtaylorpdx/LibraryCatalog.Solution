@@ -3,7 +3,7 @@
 <h2>Home</h2>
 <hr />
 
-@using (Html.BeginForm("search", "Titles")) {
+@using (Html.BeginForm("search", "Titles", "Authors")) {
   <input type="text" name="search">
   <input type="Submit" value="search" class="btn btn-default">
 }

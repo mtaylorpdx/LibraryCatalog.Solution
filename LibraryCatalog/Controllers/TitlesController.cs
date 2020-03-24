@@ -111,8 +111,14 @@ namespace LibraryCatalog.Controllers
 
     public ActionResult Search(string search)
     {
+      // var thisSearch = _db.Authors
+      //     .Include(author => author.Titles)
+      //     .ThenInclude(join => join.Title)
+      //     .FirstOrDefault(author => author.AuthorId == id);
       List<Title> model = _db.Titles.Where(title => title.BookName.Contains(search)).ToList();
       return View(model);
     }
   }
 }
+
+
