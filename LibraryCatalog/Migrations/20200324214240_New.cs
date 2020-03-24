@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace LibraryCatalog.Migrations
 {
-    public partial class Initial : Migration
+    public partial class New : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -53,11 +53,24 @@ namespace LibraryCatalog.Migrations
                 {
                     AuthorId = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
+                    AuthorName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Authors", x => x.AuthorId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Patrons",
+                columns: table => new
+                {
+                    PatronId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    PatronName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Patrons", x => x.PatronId);
                 });
 
             migrationBuilder.CreateTable(
@@ -173,7 +186,9 @@ namespace LibraryCatalog.Migrations
                     TitleId = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     BookId = table.Column<int>(nullable: false),
+                    PatronId = table.Column<int>(nullable: false),
                     BookName = table.Column<string>(nullable: true),
+                    Quantity = table.Column<int>(nullable: false),
                     UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -188,7 +203,7 @@ namespace LibraryCatalog.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Books",
+                name: "Book",
                 columns: table => new
                 {
                     BookId = table.Column<int>(nullable: false)
@@ -198,15 +213,41 @@ namespace LibraryCatalog.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Books", x => x.BookId);
+                    table.PrimaryKey("PK_Book", x => x.BookId);
                     table.ForeignKey(
-                        name: "FK_Books_Authors_AuthorId",
+                        name: "FK_Book_Authors_AuthorId",
                         column: x => x.AuthorId,
                         principalTable: "Authors",
                         principalColumn: "AuthorId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Books_Titles_TitleId",
+                        name: "FK_Book_Titles_TitleId",
+                        column: x => x.TitleId,
+                        principalTable: "Titles",
+                        principalColumn: "TitleId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Checkout",
+                columns: table => new
+                {
+                    CheckoutId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    TitleId = table.Column<int>(nullable: false),
+                    PatronId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Checkout", x => x.CheckoutId);
+                    table.ForeignKey(
+                        name: "FK_Checkout_Patrons_PatronId",
+                        column: x => x.PatronId,
+                        principalTable: "Patrons",
+                        principalColumn: "PatronId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Checkout_Titles_TitleId",
                         column: x => x.TitleId,
                         principalTable: "Titles",
                         principalColumn: "TitleId",
@@ -251,13 +292,23 @@ namespace LibraryCatalog.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Books_AuthorId",
-                table: "Books",
+                name: "IX_Book_AuthorId",
+                table: "Book",
                 column: "AuthorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Books_TitleId",
-                table: "Books",
+                name: "IX_Book_TitleId",
+                table: "Book",
+                column: "TitleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Checkout_PatronId",
+                table: "Checkout",
+                column: "PatronId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Checkout_TitleId",
+                table: "Checkout",
                 column: "TitleId");
 
             migrationBuilder.CreateIndex(
@@ -284,13 +335,19 @@ namespace LibraryCatalog.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Books");
+                name: "Book");
+
+            migrationBuilder.DropTable(
+                name: "Checkout");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "Authors");
+
+            migrationBuilder.DropTable(
+                name: "Patrons");
 
             migrationBuilder.DropTable(
                 name: "Titles");

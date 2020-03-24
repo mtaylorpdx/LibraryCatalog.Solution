@@ -7,7 +7,7 @@ namespace LibraryCatalog.Models
         public Title()
         {
             this.Authors = new HashSet<Book>();
-            this.Checkouts = new HashSet<Checkout>();
+            this.Patrons = new HashSet<Checkout>();
         }
         public int TitleId { get; set; }
         public int BookId { get; set; }
@@ -17,6 +17,6 @@ namespace LibraryCatalog.Models
         public virtual ApplicationUser User { get; set; }
 
         public ICollection<Book> Authors { get;}
-        public ICollection<Checkout> Checkouts { get;}
+        public ICollection<Checkout> Patrons { get;}
     }
 }

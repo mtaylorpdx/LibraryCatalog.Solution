@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibraryCatalog.Migrations
 {
     [DbContext(typeof(LibraryCatalogContext))]
-    [Migration("20200324203454_Fifth")]
-    partial class Fifth
+    [Migration("20200324214240_New")]
+    partial class New
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -88,49 +88,45 @@ namespace LibraryCatalog.Migrations
 
                     b.Property<int>("AuthorId");
 
-                    b.Property<int?>("CopyId");
-
                     b.Property<int>("TitleId");
 
                     b.HasKey("BookId");
 
                     b.HasIndex("AuthorId");
 
-                    b.HasIndex("CopyId");
-
                     b.HasIndex("TitleId");
 
                     b.ToTable("Book");
                 });
 
-            modelBuilder.Entity("LibraryCatalog.Models.Copy", b =>
+            modelBuilder.Entity("LibraryCatalog.Models.Checkout", b =>
                 {
-                    b.Property<int>("CopyId")
+                    b.Property<int>("CheckoutId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("CopyName");
-
-                    b.HasKey("CopyId");
-
-                    b.ToTable("Copy");
-                });
-
-            modelBuilder.Entity("LibraryCatalog.Models.CopyTitle", b =>
-                {
-                    b.Property<int>("CopyTitleId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("CopyId");
+                    b.Property<int>("PatronId");
 
                     b.Property<int>("TitleId");
 
-                    b.HasKey("CopyTitleId");
+                    b.HasKey("CheckoutId");
 
-                    b.HasIndex("CopyId");
+                    b.HasIndex("PatronId");
 
                     b.HasIndex("TitleId");
 
-                    b.ToTable("CopyTitle");
+                    b.ToTable("Checkout");
+                });
+
+            modelBuilder.Entity("LibraryCatalog.Models.Patron", b =>
+                {
+                    b.Property<int>("PatronId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("PatronName");
+
+                    b.HasKey("PatronId");
+
+                    b.ToTable("Patrons");
                 });
 
             modelBuilder.Entity("LibraryCatalog.Models.Title", b =>
@@ -141,6 +137,10 @@ namespace LibraryCatalog.Migrations
                     b.Property<int>("BookId");
 
                     b.Property<string>("BookName");
+
+                    b.Property<int>("PatronId");
+
+                    b.Property<int>("Quantity");
 
                     b.Property<string>("UserId");
 
@@ -265,25 +265,21 @@ namespace LibraryCatalog.Migrations
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("LibraryCatalog.Models.Copy")
-                        .WithMany("Titles")
-                        .HasForeignKey("CopyId");
-
                     b.HasOne("LibraryCatalog.Models.Title", "Title")
                         .WithMany("Authors")
                         .HasForeignKey("TitleId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("LibraryCatalog.Models.CopyTitle", b =>
+            modelBuilder.Entity("LibraryCatalog.Models.Checkout", b =>
                 {
-                    b.HasOne("LibraryCatalog.Models.Copy", "Copy")
-                        .WithMany()
-                        .HasForeignKey("CopyId")
+                    b.HasOne("LibraryCatalog.Models.Patron", "Patron")
+                        .WithMany("Titles")
+                        .HasForeignKey("PatronId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("LibraryCatalog.Models.Title", "Title")
-                        .WithMany("Copies")
+                        .WithMany("Patrons")
                         .HasForeignKey("TitleId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

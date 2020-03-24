@@ -136,15 +136,13 @@ namespace LibraryCatalog.Migrations
 
                     b.Property<string>("BookName");
 
-                    b.Property<int?>("PatronId");
+                    b.Property<int>("PatronId");
 
                     b.Property<int>("Quantity");
 
                     b.Property<string>("UserId");
 
                     b.HasKey("TitleId");
-
-                    b.HasIndex("PatronId");
 
                     b.HasIndex("UserId");
 
@@ -274,22 +272,18 @@ namespace LibraryCatalog.Migrations
             modelBuilder.Entity("LibraryCatalog.Models.Checkout", b =>
                 {
                     b.HasOne("LibraryCatalog.Models.Patron", "Patron")
-                        .WithMany()
+                        .WithMany("Titles")
                         .HasForeignKey("PatronId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("LibraryCatalog.Models.Title", "Title")
-                        .WithMany("Checkouts")
+                        .WithMany("Patrons")
                         .HasForeignKey("TitleId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("LibraryCatalog.Models.Title", b =>
                 {
-                    b.HasOne("LibraryCatalog.Models.Patron")
-                        .WithMany("Checkouts")
-                        .HasForeignKey("PatronId");
-
                     b.HasOne("LibraryCatalog.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
