@@ -3,7 +3,12 @@
 <h2>Home</h2>
 <hr />
 
-<p>@Html.ActionLink("Add an author", "Create", "Authors")</p>
-<p>@Html.ActionLink("View all authors", "Index", "Authors")</p>
-<p>@Html.ActionLink("Add a title", "Create", "Titles")</p>
-<p>@Html.ActionLink("View all titles", "Index", "Titles")</p>
+@using (Html.BeginForm("search", "Titles")) {
+  <input type="text" name="search">
+  <input type="Submit" value="search" class="btn btn-default">
+}
+
+<p>@Html.ActionLink("Add an author", "Create", "Authors", null,  new { @class = "btn btn-success btn-large" })</p>
+<p>@Html.ActionLink("View all authors", "Index", "Authors",  null, new { @class = "btn btn-primary btn-large" })</p>
+<p>@Html.ActionLink("Add a title", "Create", "Titles",  null, new { @class = "btn btn-primary btn-large" })</p>
+<p>@Html.ActionLink("View all titles", "Index", "Titles",  null, new { @class = "btn btn-primary btn-large" })</p>

@@ -108,5 +108,11 @@ namespace LibraryCatalog.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+
+    public ActionResult Search(string search)
+    {
+      List<Title> model = _db.Titles.Where(title => title.BookName.Contains(search)).ToList();
+      return View(model);
+    }
   }
 }
