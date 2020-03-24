@@ -7,7 +7,7 @@ namespace LibraryCatalog.Models
   {
     public virtual DbSet<Author> Authors { get; set; }
     public DbSet<Title> Titles { get; set; }
-    public DbSet<Book> Books { get; set; }
+    public DbSet<Book> Book { get; set; }
 
     public LibraryCatalogContext(DbContextOptions options) : base(options) { }
   }
