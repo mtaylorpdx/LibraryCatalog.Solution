@@ -1,0 +1,34 @@
+@{
+  Layout = "_Layout";
+}
+
+@model LibraryCatalog.Models.Title
+
+<h2>Title Details</h2>
+<hr />
+<h3>@Html.DisplayNameFor(model => model.BookName): @Html.DisplayFor(model => model.BookName)</h3>
+
+@if(@Model.Authors.Count == 0)
+{
+  <p>This title does not belong to any author</p>
+}
+else
+{
+  <h4>Authors this title belongs to:</h4>
+  <ul>
+  @foreach(var join in Model.Authors)
+  {
+    <li>@join.Author.AuthorName</li>
+    @using (Html.BeginForm("DeleteAuthor", "Titles"))
+    {
+      @Html.Hidden("joinId", @join.BookId)
+      <input type="submit" value="Delete"/>
+    }
+  }
+  </ul>
+}
+
+<p>@Html.ActionLink("Back to list", "Index")</p>
+<p>@Html.ActionLink("Edit Title", "Edit", new { id = Model.TitleId })</p>
+<p>@Html.ActionLink("Add an Author", "AddAuthor", new { id = Model.TitleId })</p>
+<p>@Html.ActionLink("Delete Title", "Delete", new { id = Model.TitleId })</p>

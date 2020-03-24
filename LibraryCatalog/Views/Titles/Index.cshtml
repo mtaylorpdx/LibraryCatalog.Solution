@@ -1,0 +1,27 @@
+@{
+  Layout = "_Layout";
+}
+
+@using LibraryCatalog.Models;
+@using System.Security.Claims
+@model IEnumerable<LibraryCatalog.Title>
+
+<h1>Titles for @User.Identity.Name</h1>
+
+@if (Model.Any())
+{
+  <ul>
+    @foreach (Title title in Model)
+    {
+      <li>@Html.ActionLink($"{title.BookName}", "Details", new { id = title.TitleId })</li>
+    }
+  </ul>
+} 
+else
+{
+  <h3>No titles have been added yet!</h3>
+}
+
+<p>@Html.ActionLink("Add new title", "Create")</p>
+
+<p>@Html.ActionLink("Home", "Index", "Home")</p>

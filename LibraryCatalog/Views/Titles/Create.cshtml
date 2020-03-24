@@ -1,0 +1,19 @@
+@{
+  Layout = "_Layout";
+}
+
+@model LibraryCatalog.Models.Title
+
+<h4>Add a new title</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(model => model.BookName)
+    @Html.TextBoxFor(model => model.BookName)
+
+    @Html.Label("Select author")
+    @Html.DropDownList("AuthorId")
+
+    <input type="submit" value="Add new title" class="btn btn-default" />
+}
+<p>@Html.ActionLink("Show all titles", "Index")</p>
