@@ -28,7 +28,7 @@ else
   </ul>
 }
 
-<p>@Html.ActionLink("Back to list", "Index")</p>
-<p>@Html.ActionLink("Edit Name", "Edit", new { id = Model.PatronId })</p>
-<p>@Html.ActionLink("Delete Patron", "Delete", new { id = Model.PatronId })</p>
-<p>@Html.ActionLink("Check Out Book", "AddTitle", "Patrons", new { id = Model.PatronId })</p>
+<p>@Html.ActionLink("Back to list", "Index", new { @class = "btn btn-dark btn-large" })</p>
+<p>@Html.ActionLink("Edit Name", "Edit", new { id = Model.PatronId, @class = "btn btn-dark btn-large" })</p>
+<p>@Html.ActionLink("Delete Patron", "Delete", new { id = Model.PatronId, @class = "btn btn-dark btn-large"  })</p>
+<p>@Html.ActionLink("Check Out Book", "AddTitle", "Patrons", new { id = Model.PatronId, @class = "btn btn-dark btn-large" })</p>

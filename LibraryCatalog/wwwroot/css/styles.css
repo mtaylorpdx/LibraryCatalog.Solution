@@ -11,11 +11,15 @@ body{
 
 .btn{
   margin-top: 50px;
-  margin-left: 40px;
+  margin-left: 100px;
 }
 
 h1 h2 h3 h4 {
   color: white;
+}
+
+.container{
+    align: Center;
 }
 
 

@@ -9,12 +9,13 @@
 {
   <h3>No authors have been added.</h3>
 }
-
-@foreach (Author author in Model)
-{
-  <li>@Html.ActionLink($"{author.AuthorName}", "Details", new { id = author.AuthorId })</li>
-}
+<h3>Authors in the database: </h3>
+<div class="col-md-8 offset-m-2">
+  @foreach (Author author in Model)
+  {
+    <p>@Html.ActionLink($"{author.AuthorName}", "Details", new { id = author.AuthorId })</p>
+    <hr>
+  }
+</div>
 
 <p>@Html.ActionLink("Add new author", "Create")</p>
-
-<p>@Html.ActionLink("Home", "Index", "Home")</p>
