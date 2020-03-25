@@ -1,8 +1,12 @@
 body{
-  /* background-image: url("https://wallpaperaccess.com/full/253322.jpg"); */
+  background-image: url("https://www.pcpls.org/wp-content/uploads/2016/02/Porter-County-Public-Library-Systems-Website.jpg");
   width: auto;
   height: auto;
   object-fit: cover;
+}
+
+#footerRow{
+    justify-content: center;
 }
 
 .firstHead{
@@ -22,5 +26,20 @@ h1 h2 h3 h4 {
     align: Center;
 }
 
+.card{
+    background-color: rgba(245, 245, 255, 0.7);
+    margin: 0 auto;
+    float: none;
+    margin-bottom: 10px;
+}
 
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: grey;
+    color: white;
+    text-align: center;
+  }
 

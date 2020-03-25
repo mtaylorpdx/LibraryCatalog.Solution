@@ -10,13 +10,14 @@
 
 @if (Model.Any())
 {
-  <ul>
-    @foreach (Title title in Model)
-    {
-      <li>@Html.ActionLink($"{title.BookName}", "Details", new { id = title.TitleId }), Quantity: @title.Quantity</li>
-      
-    }
-  </ul>
+  @foreach (Title title in Model)
+  {
+    <div class="card" style="width:30%;">
+      <div class="card-body">
+          <p>@Html.ActionLink($"{title.BookName}", "Details", new { id = title.TitleId }), Quantity: @title.Quantity</p>
+    </div>
+  </div>
+  }
 } 
 else
 {
@@ -24,5 +25,3 @@ else
 }
 
 <p>@Html.ActionLink("Add new title", "Create")</p>
-
-<p>@Html.ActionLink("Home", "Index", "Home")</p>
