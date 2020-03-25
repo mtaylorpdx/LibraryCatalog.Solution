@@ -14,15 +14,12 @@
 }
 else
 {
-  <h4>Authors this title belongs to:</h4>
   <ul>
   @foreach(var join in Model.Authors)
   {
-    <li>@join.Author.AuthorName</li>
+    <li>Author name: @join.Author.AuthorName</li>
     @using (Html.BeginForm("DeleteAuthor", "Titles"))
     {
-      @Html.Hidden("joinId", @join.BookId)
-      <input type="submit" value="Delete"/>
     }
   }
   </ul>
