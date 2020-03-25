@@ -9,6 +9,6 @@
 @Html.DisplayNameFor(model => model.PatronName): @Html.DisplayFor(model => model.PatronName)
 @using (Html.BeginForm())
 {
-    <input type="submit" value="Delete" />
+    <input type="submit" value="Delete" class="btn btn-dark"/>
 }
-@Html.ActionLink("Back to List", "Index")
+<p class="btn btn-dark">@Html.ActionLink("Back to List", "Index")</p>

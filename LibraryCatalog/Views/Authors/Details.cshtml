@@ -14,13 +14,17 @@
 }
 else
 {
- <h4>Titles the authors library contains:</h4>
+ <h4>Titles the author's library contains:</h4> <hr>
+  <div class="col-md-8 offset-m-2">
+    <hr>
   <ul>
-  @foreach(var join in Model.Titles)
-  {
-    <li>@Html.ActionLink(@join.Title.BookName, "Details", "Titles", new { id = join.Title.TitleId })</li>
-  }
-  </ul>
+    @foreach(var join in Model.Titles)
+    {
+      <p>@Html.ActionLink(@join.Title.BookName, "Details", "Titles", new { id = join.Title.TitleId })</p>
+      <hr>
+    }
+    </ul>
+  </div>
 }
 
 <p>@Html.ActionLink("Back to authors", "Index")</p>

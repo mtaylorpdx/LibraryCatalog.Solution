@@ -20,7 +20,7 @@ body{
   margin-left: 100px;
 }
 
-h1 h2 h3 h4 {
+h1 {
   color: white;
 }
 
@@ -30,6 +30,7 @@ h1 h2 h3 h4 {
 
 .card{
     background-color: rgba(245, 245, 255, 0.7);
+
 }
 
 .footer {
