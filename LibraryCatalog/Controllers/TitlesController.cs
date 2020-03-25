@@ -4,21 +4,31 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace LibraryCatalog.Controllers
 {
+  [Authorize]
   public class TitlesController : Controller
   {
     private readonly LibraryCatalogContext _db;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public TitlesController(LibraryCatalogContext db)
+    public TitlesController(UserManager<ApplicationUser> userManager, LibraryCatalogContext db)
     {
+      _userManager = userManager;
       _db = db;
     }
 
-    public ActionResult Index()
+    public async Task<ActionResult> Index()
     {
-      return View(_db.Titles.ToList());
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      var userTitle = _db.Titles.Where(entry => entry.User.Id == currentUser.Id);
+      return View(userTitle);
     }
 
     public ActionResult Create()
@@ -28,8 +38,11 @@ namespace LibraryCatalog.Controllers
     }
 
     [HttpPost]
-    public ActionResult Create(Title title, int AuthorId)
+    public async Task<ActionResult> Create(Title title, int AuthorId)
     {
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      title.User = currentUser;
       _db.Titles.Add(title);
       if (AuthorId != 0)
       {

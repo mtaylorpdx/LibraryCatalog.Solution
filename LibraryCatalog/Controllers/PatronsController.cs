@@ -4,21 +4,31 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace LibraryCatalog.Controllers
 {
+  [Authorize]
   public class PatronsController : Controller
   {
     private readonly LibraryCatalogContext _db;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public PatronsController(LibraryCatalogContext db)
+    public PatronsController(UserManager<ApplicationUser> userManager, LibraryCatalogContext db)
     {
+      _userManager = userManager;
       _db = db;
     }
 
-    public ActionResult Index()
+    public async Task<ActionResult> Index()
     {
-      return View(_db.Patrons.ToList());
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      var userPatron = _db.Patrons.Where(entry => entry.User.Id == currentUser.Id);
+      return View(userPatron);
     }
 
         public ActionResult Create()
@@ -28,8 +38,11 @@ namespace LibraryCatalog.Controllers
     }
 
     [HttpPost]
-    public ActionResult Create(Patron patron, int TitleId)
+    public async Task<ActionResult> Create(Patron patron, int TitleId)
     {
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      patron.User = currentUser;
       _db.Patrons.Add(patron);
       if (TitleId != 0)
       {
