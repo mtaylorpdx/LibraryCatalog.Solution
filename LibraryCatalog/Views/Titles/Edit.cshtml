@@ -14,6 +14,11 @@
 
     @Html.LabelFor(model => model.BookName)
     @Html.EditorFor(model => model.BookName)
+    <br>
+
+    @Html.LabelFor(model => model.Quantity)
+    @Html.EditorFor(model => model.Quantity)
+    <br>
 
     @Html.Label("Select author")
     @Html.DropDownList("AuthorId")
