@@ -38,7 +38,7 @@ namespace LibraryCatalog.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
- public ActionResult Details(int id)
+  public ActionResult Details(int id)
     {
       var thisPatron = _db.Patrons
           .Include(patron => patron.Titles)

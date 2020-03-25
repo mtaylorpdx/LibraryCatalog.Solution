@@ -2,10 +2,13 @@
   Layout = "_Layout";
 }
 
+@using LibraryCatalog.Models;
+@using System.Security.Claims;
+
 <h2 class="firstHead">Home</h2>
 <hr />
 
-
+<p>@Html.ActionLink("Create a new account", "Index", "Account")</p>
 
 
 <div class="btn-toolbar">
