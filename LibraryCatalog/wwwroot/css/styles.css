@@ -20,7 +20,7 @@ body{
   margin-left: 100px;
 }
 
-h1 {
+h1, h2, h3, h4 {
   color: white;
 }
 
@@ -33,6 +33,14 @@ h1 {
 
 }
 
+.card1{
+  background-color: rgba(245, 245, 255, 0.7);
+  margin-left: 25%;
+}
+
+#title-btn{
+  margin-top: 20px;
+}
 .footer {
     position: fixed;
     left: 0;
@@ -74,4 +82,6 @@ h1 {
     width: 50px;
    }
 
-  
+  html {
+      overflow-y: scroll;
+  }

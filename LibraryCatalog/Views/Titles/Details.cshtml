@@ -18,9 +18,6 @@ else
   @foreach(var join in Model.Authors)
   {
     <li>Author name: @join.Author.AuthorName</li>
-    @using (Html.BeginForm("DeleteAuthor", "Titles"))
-    {
-    }
   }
   </ul>
 }

@@ -12,9 +12,9 @@
 {
   @foreach (Title title in Model)
   {
-    <div class="card" style="width:30%;">
+    <div class="card1" style="width:50%;">
       <div class="card-body">
-          <p>@Html.ActionLink($"{title.BookName}", "Details", new { id = title.TitleId }), Quantity: @title.Quantity</p>
+        <p>@Html.ActionLink($"{title.BookName}", "Details", new { id = title.TitleId }), Quantity: @title.Quantity</p>
     </div>
   </div>
   }
@@ -24,4 +24,4 @@ else
   <h3>No titles have been added yet!</h3>
 }
 
-<p class="btn btn-dark">@Html.ActionLink("Add new title", "Create")</p>
+<p class="btn btn-dark" id="Ttl-btn">@Html.ActionLink("Add new title", "Create")</p>
