@@ -7,13 +7,16 @@
 <h4>Add a new Patron to the library</h4>
 <hr />
 
-@using (Html.BeginForm())
-{
-    @Html.LabelFor(model => model.PatronName)
-    @Html.TextBoxFor(model => model.PatronName)
-<br>
+<div class ="col-md-8 offset-md-2">
+  @using (Html.BeginForm())
+  {
+      @Html.LabelFor(model => model.PatronName)
+      @Html.TextBoxFor(model => model.PatronName, new { @class = "form-control" , required = "required"})
+  }
+  <br>
+</div>
 
 
 <input type="submit" value="Add new patron" class="btn btn-dark" />
-}
+<br>
 <p class="btn btn-dark">@Html.ActionLink("Show all patrons", "Index")</p>

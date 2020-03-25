@@ -38,7 +38,11 @@ h1, h2, h3, h4 {
   margin-left: 25%;
 }
 
-#title-btn{
+.card-author{
+  margin-left: 25%;
+}
+
+#new-title{
   margin-top: 20px;
 }
 .footer {

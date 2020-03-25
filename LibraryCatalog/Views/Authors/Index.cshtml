@@ -11,13 +11,15 @@
 }
 <hr>
 <h1>Authors in the database: </h1>
-<div class="col-md-8 offset-m-2">
-  <hr>
-  @foreach (Author author in Model)
-  {
-    <p>@Html.ActionLink($"{author.AuthorName}", "Details", new { id = author.AuthorId })</p>
+<div class="card-author" style="width:50%;">
+  <div class="card-body">
     <hr>
-  }
+    @foreach (Author author in Model)
+    {
+      <p>@Html.ActionLink($"{author.AuthorName}", "Details", new { id = author.AuthorId })</p>
+      <hr>
+    }
+  </div>
 </div>
 
 <p class="btn btn-dark">@Html.ActionLink("Add new author", "Create")</p>
