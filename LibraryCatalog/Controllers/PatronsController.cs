@@ -118,13 +118,12 @@ namespace LibraryCatalog.Controllers
     }
 
     [HttpPost]
-    public ActionResult DeleteTitle(Title title, int joinId)
+    public ActionResult DeleteTitle(int joinId)
     {
       var joinEntry = _db.Checkout.FirstOrDefault(entry => entry.CheckoutId == joinId);
-      var thisTitle = _db.Titles.FirstOrDefault(titles => titles.TitleId == joinId);
-
+      var titleId = joinEntry.TitleId;
+      var thisTitle = _db.Titles.FirstOrDefault(titles => titles.TitleId == titleId);
       thisTitle.Quantity +=1;
-
       _db.Checkout.Remove(joinEntry);
       _db.Entry(thisTitle).State = EntityState.Modified;
       _db.SaveChanges();
