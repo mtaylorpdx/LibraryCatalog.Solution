@@ -8,6 +8,7 @@ body{
 
 #footerRow{
     justify-content: center;
+    font-size: smaller;
 }
 
 .firstHead{
@@ -15,7 +16,7 @@ body{
 }
 
 .menu-btn{
-  margin-top: 50px;
+  margin-top: 40px;
   margin-left: 100px;
 }
 
@@ -47,7 +48,7 @@ h1 h2 h3 h4 {
 
 .contact-form{
     margin: 6em 0;
-    position: relative;  
+    position: relative;
    }
    
    .contact-form h1{
@@ -71,3 +72,5 @@ h1 h2 h3 h4 {
     height: 50px;
     width: 50px;
    }
+
+ 

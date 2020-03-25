@@ -28,7 +28,6 @@ else
   </ul>
 }
 
-<p>@Html.ActionLink("Back to list", "Index")</p>
-<p>@Html.ActionLink("Edit Title", "Edit", new { id = Model.TitleId })</p>
-<p>@Html.ActionLink("Add an Author", "AddAuthor", new { id = Model.TitleId })</p>
-<p>@Html.ActionLink("Delete Title", "Delete", new { id = Model.TitleId })</p>
+<p class="btn btn-dark">@Html.ActionLink("Back to list", "Index")</p>
+<p class="btn btn-dark">@Html.ActionLink("Edit Title", "Edit", new { id = Model.TitleId })</p>
+<p class="btn btn-dark">@Html.ActionLink("Delete Title", "Delete", new { id = Model.TitleId })</p>
