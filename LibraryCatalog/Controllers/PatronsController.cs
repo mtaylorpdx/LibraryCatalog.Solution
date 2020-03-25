@@ -31,7 +31,7 @@ namespace LibraryCatalog.Controllers
       return View(userPatron);
     }
 
-        public ActionResult Create()
+    public ActionResult Create()
     {
       ViewBag.PatronId = new SelectList(_db.Patrons, "PatronId", "PatronName");
       return View();
@@ -118,10 +118,15 @@ namespace LibraryCatalog.Controllers
     }
 
     [HttpPost]
-    public ActionResult DeleteTitle(int joinId)
+    public ActionResult DeleteTitle(Title title, int joinId)
     {
       var joinEntry = _db.Checkout.FirstOrDefault(entry => entry.CheckoutId == joinId);
+      var thisTitle = _db.Titles.FirstOrDefault(titles => titles.TitleId == joinId);
+
+      thisTitle.Quantity +=1;
+
       _db.Checkout.Remove(joinEntry);
+      _db.Entry(thisTitle).State = EntityState.Modified;
       _db.SaveChanges();
       return RedirectToAction("Index");
     }

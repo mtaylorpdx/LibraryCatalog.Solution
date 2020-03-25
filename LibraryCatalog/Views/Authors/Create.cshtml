@@ -8,7 +8,8 @@
 {
   @Html.LabelFor(model => model.AuthorName)
   @Html.TextBoxFor(model => model.AuthorName)
-  <input type="submit" value="Add author">
+  <br>
+  <input type="submit" value="Add author" class="btn btn-dark">
 }
 
 <p>@Html.ActionLink("Show all authors", "Index")</p>
