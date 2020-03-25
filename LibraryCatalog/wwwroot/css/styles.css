@@ -3,6 +3,7 @@ body{
   width: auto;
   height: auto;
   object-fit: cover;
+  font-family: 'Noto Serif JP', serif;
 }
 
 #footerRow{
@@ -13,7 +14,7 @@ body{
   color: burlywood;
 }
 
-.btn{
+.menu-btn{
   margin-top: 50px;
   margin-left: 100px;
 }
@@ -28,9 +29,6 @@ h1 h2 h3 h4 {
 
 .card{
     background-color: rgba(245, 245, 255, 0.7);
-    margin: 0 auto;
-    float: none;
-    margin-bottom: 10px;
 }
 
 .footer {
@@ -43,3 +41,33 @@ h1 h2 h3 h4 {
     text-align: center;
   }
 
+  .col-md-8, offset-m-2 {
+    background-color: #e3e3e39a;
+}
+
+.contact-form{
+    margin: 6em 0;
+    position: relative;  
+   }
+   
+   .contact-form h1{
+    padding:2em 1px;
+    color: #F97300; 
+   }
+   .contact-form .right{
+    max-width: 600px;
+   }
+   .contact-form .right .btn-secondary{
+    background:  #F97300;
+    color: #fff;
+    border:0;
+   }
+   .contact-form .right .form-control::placeholder{
+    color: #888;
+    font-size: 16px;
+   }
+
+   .navImg{
+    height: 50px;
+    width: 50px;
+   }

@@ -30,10 +30,13 @@
       }
       </ul>
     }
-
-    <p class="btn btn-dark">@Html.ActionLink("Back to list", "Index")</p>
-    <p>@Html.ActionLink("Edit Name", "Edit", new { id = Model.PatronId })</p>
-    <p>@Html.ActionLink("Delete Patron", "Delete", new { id = Model.PatronId })</p>
-    <p>@Html.ActionLink("Check Out Book", "AddTitle", "Patrons", new { id = Model.PatronId })</p>
+    <div class="row">
+      <div class="col-sm-12">
+        <p class="btn btn-dark">@Html.ActionLink("Back to list", "Index")</p>
+        <p class="btn btn-dark">@Html.ActionLink("Edit Name", "Edit", new { id = Model.PatronId })</p>
+        <p class="btn btn-dark">@Html.ActionLink("Delete Patron", "Delete", new { id = Model.PatronId })</p>
+        <p class="btn btn-dark">@Html.ActionLink("Check Out Book", "AddTitle", "Patrons", new { id = Model.PatronId })</p>
+      </div>
+    </div>
   </div>
 </div>
