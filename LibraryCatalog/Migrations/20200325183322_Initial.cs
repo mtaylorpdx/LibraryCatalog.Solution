@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace LibraryCatalog.Migrations
 {
-    public partial class New : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -45,32 +45,6 @@ namespace LibraryCatalog.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Authors",
-                columns: table => new
-                {
-                    AuthorId = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    AuthorName = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Authors", x => x.AuthorId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Patrons",
-                columns: table => new
-                {
-                    PatronId = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    PatronName = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Patrons", x => x.PatronId);
                 });
 
             migrationBuilder.CreateTable(
@@ -180,6 +154,46 @@ namespace LibraryCatalog.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Authors",
+                columns: table => new
+                {
+                    AuthorId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    AuthorName = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Authors", x => x.AuthorId);
+                    table.ForeignKey(
+                        name: "FK_Authors_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Patrons",
+                columns: table => new
+                {
+                    PatronId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    PatronName = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Patrons", x => x.PatronId);
+                    table.ForeignKey(
+                        name: "FK_Patrons_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Titles",
                 columns: table => new
                 {
@@ -209,7 +223,8 @@ namespace LibraryCatalog.Migrations
                     BookId = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     TitleId = table.Column<int>(nullable: false),
-                    AuthorId = table.Column<int>(nullable: false)
+                    AuthorId = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -226,6 +241,12 @@ namespace LibraryCatalog.Migrations
                         principalTable: "Titles",
                         principalColumn: "TitleId",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Book_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -235,7 +256,8 @@ namespace LibraryCatalog.Migrations
                     CheckoutId = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     TitleId = table.Column<int>(nullable: false),
-                    PatronId = table.Column<int>(nullable: false)
+                    PatronId = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -252,6 +274,12 @@ namespace LibraryCatalog.Migrations
                         principalTable: "Titles",
                         principalColumn: "TitleId",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Checkout_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -292,6 +320,11 @@ namespace LibraryCatalog.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Authors_UserId",
+                table: "Authors",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Book_AuthorId",
                 table: "Book",
                 column: "AuthorId");
@@ -302,6 +335,11 @@ namespace LibraryCatalog.Migrations
                 column: "TitleId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Book_UserId",
+                table: "Book",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Checkout_PatronId",
                 table: "Checkout",
                 column: "PatronId");
@@ -310,6 +348,16 @@ namespace LibraryCatalog.Migrations
                 name: "IX_Checkout_TitleId",
                 table: "Checkout",
                 column: "TitleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Checkout_UserId",
+                table: "Checkout",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Patrons_UserId",
+                table: "Patrons",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Titles_UserId",

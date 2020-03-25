@@ -92,11 +92,11 @@ namespace LibraryCatalog.Controllers
       if (TitleId != 0)
       {
         _db.Checkout.Add(new Checkout() { TitleId = TitleId, PatronId = title.PatronId });
+        
         var thisTitle = _db.Titles.FirstOrDefault(titles => titles.TitleId == TitleId);
         thisTitle.Quantity -=1;
-
-        string query = "UPDATE Titles SET Quantity++";
-
+        _db.Entry(thisTitle).State = EntityState.Modified;
+        // string query = "UPDATE Titles SET Quantity++";
       }
       _db.SaveChanges();
       return RedirectToAction("Index");

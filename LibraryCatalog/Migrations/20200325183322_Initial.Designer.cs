@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibraryCatalog.Migrations
 {
     [DbContext(typeof(LibraryCatalogContext))]
-    [Migration("20200325161658_Login")]
-    partial class Login
+    [Migration("20200325183322_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -76,7 +76,11 @@ namespace LibraryCatalog.Migrations
 
                     b.Property<string>("AuthorName");
 
+                    b.Property<string>("UserId");
+
                     b.HasKey("AuthorId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Authors");
                 });
@@ -90,11 +94,15 @@ namespace LibraryCatalog.Migrations
 
                     b.Property<int>("TitleId");
 
+                    b.Property<string>("UserId");
+
                     b.HasKey("BookId");
 
                     b.HasIndex("AuthorId");
 
                     b.HasIndex("TitleId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Book");
                 });
@@ -108,11 +116,15 @@ namespace LibraryCatalog.Migrations
 
                     b.Property<int>("TitleId");
 
+                    b.Property<string>("UserId");
+
                     b.HasKey("CheckoutId");
 
                     b.HasIndex("PatronId");
 
                     b.HasIndex("TitleId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Checkout");
                 });
@@ -124,7 +136,11 @@ namespace LibraryCatalog.Migrations
 
                     b.Property<string>("PatronName");
 
+                    b.Property<string>("UserId");
+
                     b.HasKey("PatronId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Patrons");
                 });
@@ -258,6 +274,13 @@ namespace LibraryCatalog.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("LibraryCatalog.Models.Author", b =>
+                {
+                    b.HasOne("LibraryCatalog.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("LibraryCatalog.Models.Book", b =>
                 {
                     b.HasOne("LibraryCatalog.Models.Author", "Author")
@@ -269,6 +292,10 @@ namespace LibraryCatalog.Migrations
                         .WithMany("Authors")
                         .HasForeignKey("TitleId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("LibraryCatalog.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("LibraryCatalog.Models.Checkout", b =>
@@ -282,6 +309,17 @@ namespace LibraryCatalog.Migrations
                         .WithMany("Patrons")
                         .HasForeignKey("TitleId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("LibraryCatalog.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("LibraryCatalog.Models.Patron", b =>
+                {
+                    b.HasOne("LibraryCatalog.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("LibraryCatalog.Models.Title", b =>
