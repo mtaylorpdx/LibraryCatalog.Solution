@@ -124,22 +124,9 @@ namespace LibraryCatalog.Controllers
 
     public ActionResult Search(string search)
     {
-      // var thisSearch = _db.Titles
-      //     .Include(title => title.Authors)
-      //     .ThenInclude(join => join.Author)
-      //     .FirstOrDefault(title => title.TitleId == id);
       List<Title> model = _db.Titles.Where(title => title.BookName.Contains(search)).ToList();
       return View(model);
     }
-
-
-
-    //     [HttpPost]
-    // public ActionResult Search(string search)
-    // {
-    //   List<Restaurant> model = _db.Restaurants.Where(restaurant => (restaurant.KeyWords.Contains(search)) || restaurant.Name.Contains(search)).ToList();
-    //   return View(model);
-    // }
   }
 }
 
